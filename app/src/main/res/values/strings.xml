@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">系统设置助手</string>
+
+    <!-- WiFi 状态区域 -->
+    <string name="wifi_info_title">当前 WiFi 状态</string>
+    <string name="label_wifi_switch">WiFi 开关</string>
+    <string name="label_connected_ssid">已连接网络</string>
+    <string name="status_unknown">未知</string>
+    <string name="status_on">已开启</string>
+    <string name="status_off">已关闭</string>
+    <string name="status_not_connected">未连接</string>
+    <string name="status_connecting">连接中...</string>
+
+    <!-- 按钮文字 -->
+    <string name="btn_enable_wifi">开启 WiFi</string>
+    <string name="btn_wifi_settings">WiFi 设置</string>
+    <string name="btn_ime_settings">输入法设置</string>
+    <string name="btn_system_settings">更多系统设置</string>
+</resources>
+

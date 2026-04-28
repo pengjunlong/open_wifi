@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="Theme.AppCompat.Leanback">
+        <item name="android:windowBackground">@color/background</item>
+        <item name="android:colorPrimary">@color/btn_primary</item>
+        <item name="android:colorAccent">@color/btn_primary_focused</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+    </style>
+</resources>
+
