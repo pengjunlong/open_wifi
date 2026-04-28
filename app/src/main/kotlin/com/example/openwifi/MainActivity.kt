@@ -9,7 +9,6 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.view.KeyEvent
-import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -18,12 +17,12 @@ import androidx.appcompat.app.AppCompatActivity
 /**
  * TV 系统设置助手 MainActivity
  *
- * 功能：
  * 1. 显示当前 WiFi 状态（开/关）及已连接的 WiFi 名称
- * 2. WiFi 关闭时，显示"开启 WiFi"按钮，点击后直接开启 WiFi
- * 3. 点击"WiFi 设置"跳转到系统 WiFi 设置页面
- * 4. 点击"输入法设置"跳转到系统输入法设置页面
- * 5. 点击"更多系统设置"跳转到系统设置主页面
+ * 2. WiFi 切换按钮：一键开启/关闭 WiFi（Android 10+ 跳转设置页）
+ * 3. 显示当前系统配置的输入法名称
+ * 4. 点击"WiFi 设置"跳转到系统 WiFi 设置页面
+ * 5. 点击"输入法设置"跳转到系统输入法设置页面
+ * 6. 点击"更多系统设置"跳转到系统设置主页面
  *
  * 适配 Android 6.0 (API 23)，针对 TV 遥控器焦点导航优化
  */
@@ -33,7 +32,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var tvWifiEnabled: TextView
     private lateinit var tvSsid: TextView
-    private lateinit var btnEnableWifi: Button
+    private lateinit var tvIme: TextView
+    private lateinit var btnToggleWifi: Button
     private lateinit var btnWifiSettings: Button
     private lateinit var btnImeSettings: Button
     private lateinit var btnSystemSettings: Button
@@ -63,7 +63,8 @@ class MainActivity : AppCompatActivity() {
         // 绑定 UI 控件
         tvWifiEnabled = findViewById(R.id.tv_wifi_enabled)
         tvSsid = findViewById(R.id.tv_ssid)
-        btnEnableWifi = findViewById(R.id.btn_enable_wifi)
+        tvIme = findViewById(R.id.tv_ime)
+        btnToggleWifi = findViewById(R.id.btn_toggle_wifi)
         btnWifiSettings = findViewById(R.id.btn_wifi_settings)
         btnImeSettings = findViewById(R.id.btn_ime_settings)
         btnSystemSettings = findViewById(R.id.btn_system_settings)
@@ -73,6 +74,9 @@ class MainActivity : AppCompatActivity() {
 
         // 初始化 WiFi 状态
         updateWifiStatus()
+
+        // 初始化输入法名称
+        updateImeStatus()
     }
 
     override fun onResume() {
@@ -83,8 +87,10 @@ class MainActivity : AppCompatActivity() {
             addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION)
         }
         registerReceiver(wifiStateReceiver, filter)
-        // 每次 Resume 刷新一次状态（从设置页返回时保持最新）
+        // 每次 Resume 刷新状态（从设置页返回时保持最新）
         updateWifiStatus()
+        // 从输入法设置页返回后刷新输入法名称
+        updateImeStatus()
     }
 
     override fun onPause() {
@@ -97,13 +103,13 @@ class MainActivity : AppCompatActivity() {
      * 配置各按钮的点击监听
      */
     private fun setupButtons() {
-        btnEnableWifi.setOnClickListener { enableWifi() }
+        btnToggleWifi.setOnClickListener { toggleWifi() }
         btnWifiSettings.setOnClickListener { openSettings(Settings.ACTION_WIFI_SETTINGS, "无法打开 WiFi 设置") }
         btnImeSettings.setOnClickListener { openSettings(Settings.ACTION_INPUT_METHOD_SETTINGS, "无法打开输入法设置") }
         btnSystemSettings.setOnClickListener { openSettings(Settings.ACTION_SETTINGS, "无法打开系统设置") }
 
-        // TV 遥控器：焦点优先落在第一个可见按钮上
-        btnWifiSettings.requestFocus()
+        // TV 遥控器：焦点优先落在 WiFi 切换按钮上
+        btnToggleWifi.requestFocus()
     }
 
     /**
@@ -122,9 +128,8 @@ class MainActivity : AppCompatActivity() {
                 tvWifiEnabled.setText(R.string.status_on)
                 tvWifiEnabled.setTextColor(getColor(R.color.status_on))
 
-                // 隐藏"开启 WiFi"按钮，清除焦点链
-                btnEnableWifi.visibility = View.GONE
-                btnWifiSettings.nextFocusUpId = View.NO_ID
+                // 切换按钮文字为"关闭 WiFi"
+                btnToggleWifi.setText(R.string.btn_toggle_wifi_on)
 
                 // 获取已连接的 SSID
                 @Suppress("DEPRECATION")
@@ -148,41 +153,95 @@ class MainActivity : AppCompatActivity() {
                 tvWifiEnabled.setTextColor(getColor(R.color.text_secondary))
                 tvSsid.setText(R.string.status_not_connected)
                 tvSsid.setTextColor(getColor(R.color.text_secondary))
-                btnEnableWifi.visibility = View.GONE
+                btnToggleWifi.setText(R.string.btn_toggle_wifi_off)
+            }
+
+            WifiManager.WIFI_STATE_DISABLING -> {
+                // WiFi 关闭中
+                tvWifiEnabled.setText(R.string.status_connecting)
+                tvWifiEnabled.setTextColor(getColor(R.color.text_secondary))
+                tvSsid.setText(R.string.status_not_connected)
+                tvSsid.setTextColor(getColor(R.color.text_secondary))
+                btnToggleWifi.setText(R.string.btn_toggle_wifi_on)
             }
 
             else -> {
-                // WiFi 已关闭（DISABLED / DISABLING / UNKNOWN）
+                // WiFi 已关闭（DISABLED / UNKNOWN）
                 tvWifiEnabled.setText(R.string.status_off)
                 tvWifiEnabled.setTextColor(getColor(R.color.status_off))
                 tvSsid.setText(R.string.status_not_connected)
                 tvSsid.setTextColor(getColor(R.color.text_secondary))
 
-                // 显示"开启 WiFi"按钮，更新焦点链
-                btnEnableWifi.visibility = View.VISIBLE
-                btnWifiSettings.nextFocusUpId = R.id.btn_enable_wifi
-                btnEnableWifi.requestFocus()
+                // 切换按钮文字为"开启 WiFi"
+                btnToggleWifi.setText(R.string.btn_toggle_wifi_off)
             }
         }
     }
 
     /**
-     * 开启 WiFi
+     * 读取并显示当前系统配置的输入法名称
+     * 通过 Settings.Secure.DEFAULT_INPUT_METHOD 获取当前输入法包名/组件名
+     * 再从 InputMethodManager 中查找对应的应用标签名
+     */
+    private fun updateImeStatus() {
+        val imeName = getCurrentImeName()
+        tvIme.text = imeName ?: getString(R.string.status_unknown)
+        tvIme.setTextColor(
+            if (imeName != null) getColor(R.color.text_secondary)
+            else getColor(R.color.status_off)
+        )
+    }
+
+    /**
+     * 获取当前默认输入法的友好名称
+     * 返回 null 表示无法获取
+     */
+    private fun getCurrentImeName(): String? {
+        return runCatching {
+            // 读取当前默认输入法的组件名，格式：com.xxx.ime/.ServiceClass
+            val defaultIme = Settings.Secure.getString(
+                contentResolver,
+                Settings.Secure.DEFAULT_INPUT_METHOD
+            ) ?: return null
+
+            // 通过 InputMethodManager 查找对应 InputMethodInfo
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE)
+                    as? android.view.inputmethod.InputMethodManager
+                ?: return defaultIme.substringBefore("/")
+
+            val imeInfo = imm.enabledInputMethodList
+                .firstOrNull { it.id == defaultIme }
+                ?: imm.inputMethodList
+                    .firstOrNull { it.id == defaultIme }
+
+            // 优先返回应用标签，降级返回包名
+            imeInfo?.loadLabel(packageManager)?.toString()
+                ?: defaultIme.substringBefore("/")
+        }.getOrNull()
+    }
+
+    /**
+     * 切换 WiFi 开关
      * Android 10+ setWifiEnabled 已废弃，引导用户到 WiFi 设置页
      */
     @Suppress("DEPRECATION")
-    private fun enableWifi() {
+    private fun toggleWifi() {
         val manager = wifiManager ?: return
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            // Android 10+ 无法直接开启 WiFi
-            Toast.makeText(this, "请在设置中手动开启 WiFi", Toast.LENGTH_SHORT).show()
+            // Android 10+ 无法直接操作 WiFi，跳转设置页
+            Toast.makeText(this, "请在设置中手动切换 WiFi", Toast.LENGTH_SHORT).show()
             openSettings(Settings.ACTION_WIFI_SETTINGS, "无法打开 WiFi 设置")
-        } else {
-            val success = manager.setWifiEnabled(true)
-            if (!success) {
-                Toast.makeText(this, "开启 WiFi 失败，请在设置中手动开启", Toast.LENGTH_SHORT).show()
-                openSettings(Settings.ACTION_WIFI_SETTINGS, "无法打开 WiFi 设置")
-            }
+            return
+        }
+
+        val isEnabled = manager.wifiState == WifiManager.WIFI_STATE_ENABLED ||
+                manager.wifiState == WifiManager.WIFI_STATE_ENABLING
+
+        val success = manager.setWifiEnabled(!isEnabled)
+        if (!success) {
+            Toast.makeText(this, "操作失败，请在设置中手动切换", Toast.LENGTH_SHORT).show()
+            openSettings(Settings.ACTION_WIFI_SETTINGS, "无法打开 WiFi 设置")
         }
     }
 

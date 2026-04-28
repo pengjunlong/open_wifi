@@ -1,113 +1,169 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- TV 横屏两栏式布局：左侧状态信息，右侧功能按钮 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:background="@color/background"
     android:padding="40dp"
     android:gravity="center">
 
-    <!-- 标题 -->
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:textSize="32sp"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:layout_marginBottom="40dp" />
-
-    <!-- WiFi 状态信息卡片 -->
+    <!-- 左栏：状态信息 -->
     <LinearLayout
-        android:id="@+id/card_wifi_status"
-        android:layout_width="600dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:orientation="vertical"
-        android:background="@drawable/card_background"
-        android:padding="30dp"
-        android:layout_marginBottom="40dp">
+        android:layout_marginEnd="40dp">
 
+        <!-- 标题 -->
         <TextView
+            android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/wifi_info_title"
-            android:textSize="18sp"
-            android:textColor="@color/text_secondary"
-            android:layout_marginBottom="16dp" />
+            android:text="@string/app_name"
+            android:textSize="28sp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_marginBottom="32dp" />
 
-        <!-- WiFi 开关状态 -->
+        <!-- WiFi 状态信息卡片 -->
         <LinearLayout
+            android:id="@+id/card_wifi_status"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginBottom="12dp">
+            android:orientation="vertical"
+            android:background="@drawable/card_background"
+            android:padding="28dp"
+            android:layout_marginBottom="20dp">
 
             <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/label_wifi_switch"
-                android:textSize="16sp"
-                android:textColor="@color/text_primary" />
-
-            <TextView
-                android:id="@+id/tv_wifi_enabled"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/status_unknown"
-                android:textSize="16sp"
-                android:textColor="@color/status_off"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <!-- 连接的 WiFi 名称 -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/label_connected_ssid"
-                android:textSize="16sp"
-                android:textColor="@color/text_primary" />
-
-            <TextView
-                android:id="@+id/tv_ssid"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/status_not_connected"
-                android:textSize="16sp"
+                android:text="@string/wifi_info_title"
+                android:textSize="14sp"
                 android:textColor="@color/text_secondary"
-                android:maxWidth="300dp"
-                android:ellipsize="end"
-                android:singleLine="true" />
+                android:layout_marginBottom="16dp" />
+
+            <!-- WiFi 开关状态 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/label_wifi_switch"
+                    android:textSize="15sp"
+                    android:textColor="@color/text_primary" />
+
+                <TextView
+                    android:id="@+id/tv_wifi_enabled"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/status_unknown"
+                    android:textSize="15sp"
+                    android:textColor="@color/status_off"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- 连接的 WiFi 名称 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/label_connected_ssid"
+                    android:textSize="15sp"
+                    android:textColor="@color/text_primary" />
+
+                <TextView
+                    android:id="@+id/tv_ssid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/status_not_connected"
+                    android:textSize="15sp"
+                    android:textColor="@color/text_secondary"
+                    android:maxWidth="260dp"
+                    android:ellipsize="end"
+                    android:singleLine="true" />
+            </LinearLayout>
         </LinearLayout>
+
+        <!-- 输入法信息卡片 -->
+        <LinearLayout
+            android:id="@+id/card_ime_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/card_background"
+            android:padding="28dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ime_info_title"
+                android:textSize="14sp"
+                android:textColor="@color/text_secondary"
+                android:layout_marginBottom="16dp" />
+
+            <!-- 当前输入法名称 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/label_current_ime"
+                    android:textSize="15sp"
+                    android:textColor="@color/text_primary" />
+
+                <TextView
+                    android:id="@+id/tv_ime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/status_unknown"
+                    android:textSize="15sp"
+                    android:textColor="@color/text_secondary"
+                    android:maxWidth="260dp"
+                    android:ellipsize="end"
+                    android:singleLine="true" />
+            </LinearLayout>
+        </LinearLayout>
+
     </LinearLayout>
 
-    <!-- 功能按钮区域 -->
+    <!-- 右栏：功能按钮 -->
     <LinearLayout
-        android:layout_width="600dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="center_horizontal">
 
-        <!-- 打开/关闭 WiFi 按钮（WiFi 关闭时才显示） -->
+        <!-- WiFi 切换开关按钮（始终显示） -->
         <Button
-            android:id="@+id/btn_enable_wifi"
+            android:id="@+id/btn_toggle_wifi"
             android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:text="@string/btn_enable_wifi"
-            android:textSize="18sp"
+            android:layout_height="60dp"
+            android:text="@string/btn_toggle_wifi_off"
+            android:textSize="17sp"
             android:textColor="@color/white"
             android:background="@drawable/btn_primary"
-            android:layout_marginBottom="16dp"
-            android:visibility="gone"
+            android:layout_marginBottom="14dp"
             android:focusable="true"
             android:nextFocusDown="@+id/btn_wifi_settings" />
 
@@ -115,26 +171,26 @@
         <Button
             android:id="@+id/btn_wifi_settings"
             android:layout_width="match_parent"
-            android:layout_height="64dp"
+            android:layout_height="60dp"
             android:text="@string/btn_wifi_settings"
-            android:textSize="18sp"
+            android:textSize="17sp"
             android:textColor="@color/white"
             android:background="@drawable/btn_primary"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="14dp"
             android:focusable="true"
-            android:nextFocusUp="@+id/btn_enable_wifi"
+            android:nextFocusUp="@+id/btn_toggle_wifi"
             android:nextFocusDown="@+id/btn_ime_settings" />
 
         <!-- 输入法设置按钮 -->
         <Button
             android:id="@+id/btn_ime_settings"
             android:layout_width="match_parent"
-            android:layout_height="64dp"
+            android:layout_height="60dp"
             android:text="@string/btn_ime_settings"
-            android:textSize="18sp"
+            android:textSize="17sp"
             android:textColor="@color/white"
             android:background="@drawable/btn_primary"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="14dp"
             android:focusable="true"
             android:nextFocusUp="@+id/btn_wifi_settings"
             android:nextFocusDown="@+id/btn_system_settings" />
@@ -143,13 +199,14 @@
         <Button
             android:id="@+id/btn_system_settings"
             android:layout_width="match_parent"
-            android:layout_height="64dp"
+            android:layout_height="60dp"
             android:text="@string/btn_system_settings"
-            android:textSize="18sp"
+            android:textSize="17sp"
             android:textColor="@color/white"
             android:background="@drawable/btn_secondary"
             android:focusable="true"
             android:nextFocusUp="@+id/btn_ime_settings" />
+
     </LinearLayout>
 
 </LinearLayout>

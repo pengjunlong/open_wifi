@@ -1,16 +1,1 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <color name="background">#1A1A2E</color>
-    <color name="card_background">#16213E</color>
-    <color name="btn_primary">#0F3460</color>
-    <color name="btn_primary_focused">#E94560</color>
-    <color name="btn_secondary">#1A3A5C</color>
-    <color name="btn_secondary_focused">#2D6A9F</color>
-    <color name="white">#FFFFFF</color>
-    <color name="text_primary">#E0E0E0</color>
-    <color name="text_secondary">#9E9E9E</color>
-    <color name="status_on">#4CAF50</color>
-    <color name="status_off">#F44336</color>
-    <color name="divider">#2D2D4E</color>
-</resources>
-
+<?xml version="1.0" encoding="utf-8"?><resources><color name="background">#1A1A1A</color><color name="card_background">#242424</color><color name="divider">#333333</color><color name="wechat_green">#07C160</color><color name="wechat_green_dark">#06AD56</color><color name="btn_primary">#07C160</color><color name="btn_primary_focused">#FFFFFF</color><color name="btn_primary_text">#FFFFFF</color><color name="btn_primary_text_focused">#07C160</color><color name="btn_secondary">#2C2C2C</color><color name="btn_secondary_focused">#FFFFFF</color><color name="btn_secondary_text">#CCCCCC</color><color name="btn_secondary_text_focused">#1A1A1A</color><color name="white">#FFFFFF</color><color name="text_primary">#F0F0F0</color><color name="text_secondary">#888888</color><color name="text_label">#AAAAAA</color><color name="status_on">#07C160</color><color name="status_off">#FA5151</color><color name="focus_border">#07C160</color></resources>
