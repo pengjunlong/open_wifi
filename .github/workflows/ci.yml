@@ -19,6 +19,7 @@ permissions:
 env:
   JAVA_VERSION: '17'
   JAVA_DISTRIBUTION: 'temurin'
+  APP_SLUG: 'open-wifi'          # APK 文件名前缀（纯英文，避免中文被 URL 编码）
 
 # ════════════════════════════════════════════════════════════════════════════════
 # Job 1: PR Build & Lint（仅 PR 触发）
@@ -116,7 +117,7 @@ jobs:
           echo "versionCode=$VERSION_CODE" >> $GITHUB_OUTPUT
           echo "📦 Tag: $TAG | Version: $VERSION | VersionCode: $VERSION_CODE"
 
-      # ── 从 strings.xml 读取 app_name（用于 Release 标题）────────────────────────
+      # ── 从 strings.xml 读取 app_name（用于 Release 标题，保留中文仅用于展示）────
       - name: Extract app_name from strings.xml
         id: app_name
         run: |
@@ -151,14 +152,13 @@ jobs:
             -PversionCode="${{ steps.version.outputs.versionCode }}" \
             --stacktrace
 
-      # ── 整理产物（重命名为 {app_name}-{tag}.apk）─────────────────────────────
+      # ── 整理产物（重命名为 {APP_SLUG}-{tag}.apk，纯英文避免下载链接乱码）────────
       - name: Collect APK artifacts
         run: |
           mkdir -p artifacts
           TAG="${{ steps.version.outputs.tag }}"
-          APP_NAME="${{ steps.app_name.outputs.app_name }}"
           for f in app/build/outputs/apk/release/*.apk; do
-            [ -f "$f" ] && cp "$f" "artifacts/${APP_NAME}-${TAG}.apk"
+            [ -f "$f" ] && cp "$f" "artifacts/${APP_SLUG}-${TAG}.apk"
           done
           echo "📂 Artifacts:"
           ls -lh artifacts/
