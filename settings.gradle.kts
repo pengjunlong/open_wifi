@@ -14,5 +14,5 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "OpenWifi"
-include ':app'
+include(":app")
 
