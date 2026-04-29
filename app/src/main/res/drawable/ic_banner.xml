@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    TV Leanback Banner（320×180dp）
+    Android TV 桌面显示的横向 Banner，微信风格
+    - 背景：微信绿渐变（深绿→标准绿）
+    - 左侧：WiFi 图标
+    - 右侧：应用名称文字区域（文字由系统 label 叠加，这里只做底图）
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="320dp"
+    android:height="180dp"
+    android:viewportWidth="320"
+    android:viewportHeight="180">
+
+    <!-- 深绿背景 -->
+    <path
+        android:fillColor="#05A352"
+        android:pathData="M0,0 L320,0 L320,180 L0,180Z" />
+
+    <!-- 右侧亮绿色装饰色块（营造渐变感） -->
+    <path
+        android:fillColor="#07C160"
+        android:pathData="M160,0 L320,0 L320,180 L120,180Z" />
+
+    <!-- WiFi 最外层弧 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.95"
+        android:pathData="M90,58
+            C71,58 54,67 44,81
+            Q42,85 45,88 Q49,91 52,88
+            Q54,85 57,82
+            C64,72 76,65 90,65
+            C104,65 116,72 123,82
+            Q126,85 128,88 Q131,91 135,88
+            Q138,85 136,81
+            C126,67 109,58 90,58Z" />
+
+    <!-- WiFi 中层弧 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.95"
+        android:pathData="M90,76
+            C78,76 68,83 63,93
+            Q61,97 64,100 Q68,103 71,100
+            Q72,97 75,94
+            C79,88 84,85 90,85
+            C96,85 101,88 105,94
+            Q108,97 109,100 Q112,103 116,100
+            Q119,97 117,93
+            C112,83 102,76 90,76Z" />
+
+    <!-- WiFi 连接点 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M90,105 m-8,0 a8,8 0 1,0 16,0 a8,8 0 1,0 -16,0Z" />
+
+    <!-- 分隔线 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.3"
+        android:pathData="M160,30 L161,30 L161,150 L160,150Z" />
+
+    <!-- 应用名称区域留白（文字"系统设置助手"由系统 label 渲染，这里不硬编码） -->
+
+</vector>
+

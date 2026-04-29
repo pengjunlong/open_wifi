@@ -1,1 +1,26 @@
-<?xml version="1.0" encoding="utf-8"?><selector xmlns:android="http://schemas.android.com/apk/res/android"><item android:state_focused="true"><shape android:shape="rectangle"><solid android:color="#FFFFFF"/><stroke android:width="5dp" android:color="#07C160"/><corners android:radius="12dp"/></shape></item><item android:state_pressed="true"><shape android:shape="rectangle"><solid android:color="#05A050"/><corners android:radius="12dp"/></shape></item><item><shape android:shape="rectangle"><solid android:color="#07C160"/><corners android:radius="12dp"/></shape></item></selector>
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 获焦：白色背景 + 微信绿描边，文字由 text_color_btn_primary 切换为深色 -->
+    <item android:state_focused="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#FFFFFF" />
+            <stroke android:width="3dp" android:color="#07C160" />
+            <corners android:radius="12dp" />
+        </shape>
+    </item>
+    <!-- 按下：深绿背景 -->
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#05A050" />
+            <corners android:radius="12dp" />
+        </shape>
+    </item>
+    <!-- 默认：微信绿背景 -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#07C160" />
+            <corners android:radius="12dp" />
+        </shape>
+    </item>
+</selector>
+

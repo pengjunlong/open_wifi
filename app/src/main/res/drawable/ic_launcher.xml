@@ -1,18 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+    App Icon：微信风格
+    - 背景：微信绿 #07C160，圆角矩形（仿微信图标圆角）
+    - 图标：白色 WiFi 信号扇形 + 底部连接点
+-->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp"
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
+
+    <!-- 绿色圆角矩形背景 -->
     <path
-        android:fillColor="#0F3460"
-        android:pathData="M0,0h108v108h-108z" />
-    <path
-        android:fillColor="#E94560"
-        android:pathData="M54,20 C35.2,20 20,35.2 20,54 C20,72.8 35.2,88 54,88 C72.8,88 88,72.8 88,54 C88,35.2 72.8,20 54,20Z
-                          M54,30 C67.2,30 78,40.8 78,54 C78,67.2 67.2,78 54,78 C40.8,78 30,67.2 30,54 C30,40.8 40.8,30 54,30Z" />
+        android:fillColor="#07C160"
+        android:pathData="M20,0 L88,0 Q108,0 108,20 L108,88 Q108,108 88,108 L20,108 Q0,108 0,88 L0,20 Q0,0 20,0Z" />
+
+    <!-- WiFi 最外层弧（大） -->
     <path
         android:fillColor="#FFFFFF"
-        android:pathData="M42,48 L66,48 L66,60 L42,60Z" />
+        android:pathData="M54,30
+            C38,30 24,40 18,54
+            Q16,58 19,61 Q22,64 26,62
+            Q28,58 30,56
+            C36,46 44,40 54,40
+            C64,40 72,46 78,56
+            Q80,58 82,62 Q86,64 89,61
+            Q92,58 90,54
+            C84,40 70,30 54,30Z" />
+
+    <!-- WiFi 中层弧（中） -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,48
+            C44,48 36,54 32,63
+            Q30,67 33,70 Q37,73 40,70
+            Q41,68 43,65
+            C46,60 50,57 54,57
+            C58,57 62,60 65,65
+            Q67,68 68,70 Q71,73 75,70
+            Q78,67 76,63
+            C72,54 64,48 54,48Z" />
+
+    <!-- WiFi 连接点（圆形） -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,68 m-6,0 a6,6 0 1,0 12,0 a6,6 0 1,0 -12,0Z" />
+
 </vector>
 

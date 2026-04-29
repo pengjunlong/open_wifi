@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 获焦：背景变白，文字改为微信绿，清晰可辨 -->
+    <item android:state_focused="true" android:color="#07C160" />
+    <!-- 按下：背景变深绿，文字保持白色 -->
+    <item android:state_pressed="true" android:color="#FFFFFF" />
+    <!-- 默认：绿色背景，白色文字 -->
+    <item android:color="#FFFFFF" />
+</selector>
+

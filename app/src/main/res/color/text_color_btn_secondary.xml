@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 获焦：背景变白，文字改为深色，清晰可辨 -->
+    <item android:state_focused="true" android:color="#1A1A1A" />
+    <!-- 按下：同获焦 -->
+    <item android:state_pressed="true" android:color="#1A1A1A" />
+    <!-- 默认：深灰背景，浅灰文字 -->
+    <item android:color="#CCCCCC" />
+</selector>
+
